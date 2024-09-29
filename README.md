@@ -34,7 +34,7 @@ OO基础技术：实现的Sudoku类应当符合所用语言OOP的技术惯例，
 流程：
 1. 输入字符串 -> 解析输入的字符串。
 2. 若解析成功，显示初始棋盘与推理棋盘
-![image](https://github.com/user-attachments/assets/426237d3-d08c-45fa-bb89-bc70d74cc98d)![image](https://github.com/user-attachments/assets/2d1408e4-1a9a-4510-b1be-2b799938a300)
+![image](https://github.com/user-attachments/assets/426237d3-d08c-45fa-bb89-bc70d74cc98d)
 
 
 
