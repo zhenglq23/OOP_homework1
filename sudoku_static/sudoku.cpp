@@ -13,7 +13,7 @@ void Sudoku::parse(char* input){
 
 char* Sudoku::getInference(int row, int col, char* inference){
 	for (int i=0; i<GRID_SIZE; i++)
-		inference[i] = char(i+48);
+		inference[i] = char(i+49);
 	
 	char* all_data_for_check = new char[3*GRID_SIZE];
 	char* data_for_check = new char[GRID_SIZE];
@@ -26,7 +26,7 @@ char* Sudoku::getInference(int row, int col, char* inference){
 	
 	for (int i=0; i<3*Grid::GRID_SIZE; i++){
 		if (all_data_for_check[i] != '0'){
-			inference[all_data_for_check[i]-48] = ' ';
+			inference[all_data_for_check[i]-49] = ' ';
 		}
 	}
 	

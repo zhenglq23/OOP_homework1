@@ -13,7 +13,7 @@ class Grid:
         return self.grid[:,col].reshape(1,-1)
     
     def getBox(self, row, col):
-        org_row = row // self.BOX_SIZE
-        org_col = col // self.BOX_SIZE
-        return self.grid[org_row:org_row+self.BOX_SIZE, org_col:org_col+self.BOX_SIZE].reshape(1,-1)
+        org_row = row // self.BOX_SIZE * self.BOX_SIZE
+        org_col = col // self.BOX_SIZE * self.BOX_SIZE
+        return self.grid[org_row:org_row+self.BOX_SIZE, org_col:org_col+self.BOX_SIZE].flatten()
 

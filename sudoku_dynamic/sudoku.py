@@ -19,27 +19,89 @@ class Sudoku(Grid):
         data_for_check.extend(self.getBox(row, col).tolist())
 
         for data in data_for_check:
-            if data in inference:
-                inference.remove(data)
-
+            if data in inference and data!=0:
+                inference[data-1] = ' '
         return inference
     
     # 打印初始棋盘
     def print(self):
-        for row in self.grid:
-            print(' '.join(map(str, row)))
+        """for row in self.grid:
+            print(' '.join(map(str, row)))"""
+        row_bound = "#####################################"
+        row_bland = "#   |   |   #   |   |   #   |   |   #"
+        row_interval = "#-----------#-----------#-----------#"
+        for r in range(self.GRID_SIZE):
+            if r == 0:
+                print(row_bound)
+                print(row_bland)
+            elif r % self.BOX_SIZE == 0:
+                print(row_bland)
+                print(row_bound)
+                print(row_bland)
+            else:
+                print(row_bland)
+                print(row_interval)
+                print(row_bland)
+            
+            row_data = self.getRow(r)
+            for c in range(self.GRID_SIZE):
+                if c % self.BOX_SIZE == 0:
+                    print("#", end="")
+                else:
+                    print("|", end="")
+                
+                if row_data[c] == 0:
+                    print("   ", end="")
+                else:
+                    print(f" {row_data[c]} ", end="")
+                    
+            print("#")
+
+        print(row_bland)
+        print(row_bound)
 
     # 打印推理棋盘
     def printWithInference(self):
-        for row in range(self.GRID_SIZE):
-            row_data = self.grid[row]
-            for col,data in enumerate(row_data):
-                # 无内容 回溯
-                if data==0:
-                    print(self.getInference(row,col),end='|')
+        row_bound = "#####################################"
+        row_interval = "#-----------#-----------#-----------#"
+
+        for r in range(self.GRID_SIZE):
+            line1, line2, line3 = "", "", ""
+            if r % self.BOX_SIZE == 0:
+                print(row_bound)
+            
+            # 获取数独在该行的数据
+            row_data = self.getRow(r)
+            
+            # 进行列循环
+            for c in range(self.GRID_SIZE):
+                # 格式打印
+                if c % self.BOX_SIZE == 0:
+                    line1 += '#'
+                    line2 += '#'
+                    line3 += '#'
                 else:
-                    print(data,end='|')
-            print(' ')
+                    line1 += '|'
+                    line2 += '|'
+                    line3 += '|'
+                
+                # 若该格有内容则在中间格打印，否则进行推理
+                if int(row_data[c]) == 0:
+                    inference = self.getInference(r, c)
+                    line1 += str(inference[0]) + str(inference[1]) + str(inference[2])
+                    line2 += str(inference[3]) + str(inference[4]) + str(inference[5])
+                    line3 += str(inference[6]) + str(inference[7]) + str(inference[8])
+                else:
+                    line1 += "   "
+                    line2 += f" {row_data[c]} "
+                    line3 += "   "
+            
+            print(line1 + "#")
+            print(line2 + "#")
+            print(line3 + "#")
+            print(row_interval)
+
+        print(row_bound)
 
     # 克隆
     def clone(self):
